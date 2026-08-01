@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>FUNTOP | قائمة الطعام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400..700&family=Tajawal:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0a08;
+    --bg-panel:#14110d;
+    --gold:#c9a35f;
+    --gold-light:#e9cd94;
+    --gold-dim:rgba(201,163,95,0.35);
+    --cream:#f4ead9;
+    --muted:#a3947c;
+    --divider:rgba(201,163,95,0.22);
+    --maxw:640px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse at top, #1a1610 0%, #0b0a08 55%),
+      var(--bg);
+    color:var(--cream);
+    font-family:'Tajawal', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:60px;
+  }
+  ::selection{ background:var(--gold); color:#1a1610; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:44px 24px 30px;
+    text-align:center;
+    position:relative;
+  }
+  .ornament{
+    width:100%;
+    max-width:220px;
+    margin:0 auto;
+    display:block;
+    color:var(--gold);
+    opacity:0.9;
+  }
+  .brand{
+    font-family:'Reem Kufi', sans-serif;
+    font-weight:700;
+    font-size:clamp(40px, 12vw, 56px);
+    letter-spacing:2px;
+    color:var(--gold-light);
+    margin-top:10px;
+    text-shadow:0 0 30px rgba(233,205,148,0.15);
+  }
+  .brand-sub{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--muted);
+    letter-spacing:4px;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+  .hero-title{
+    margin-top:22px;
+    font-family:'Reem Kufi', sans-serif;
+    font-size:22px;
+    color:var(--cream);
+  }
+  .hero-title-en{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color:var(--muted);
+    font-size:14px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-top:4px;
+  }
+
+  /* ---------- CATEGORY NAV ---------- */
+  .cat-nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(11,10,8,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--divider);
+    padding:12px 0;
+  }
+  .cat-nav-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:0 16px;
+    scrollbar-width:none;
+  }
+  .cat-nav-inner::-webkit-scrollbar{ display:none; }
+  .cat-pill{
+    flex:0 0 auto;
+    font-family:'Tajawal', sans-serif;
+    font-size:13.5px;
+    font-weight:500;
+    color:var(--muted);
+    background:transparent;
+    border:1px solid var(--divider);
+    border-radius:100px;
+    padding:8px 16px;
+    white-space:nowrap;
+    cursor:pointer;
+    transition:all .25s ease;
+  }
+  .cat-pill.active{
+    color:#181410;
+    background:var(--gold);
+    border-color:var(--gold);
+    font-weight:700;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  main{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
+  section.cat{ padding-top:38px; scroll-margin-top:74px; }
+  .cat-header{ text-align:center; margin-bottom:8px; }
+  .cat-header .ar{
+    font-family:'Reem Kufi', sans-serif;
+    font-size:26px;
+    color:var(--gold-light);
+  }
+  .cat-header .en{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color:var(--muted);
+    font-size:13px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-top:2px;
+  }
+  .divider{
+    display:flex;
+    justify-content:center;
+    margin:14px 0 22px;
+    color:var(--gold);
+    opacity:0.75;
+  }
+  .divider svg{ width:140px; height:14px; }
+
+  /* subhead within a category */
+  .subhead{
+    margin:26px 0 12px;
+    text-align:center;
+  }
+  .subhead .ar{
+    font-family:'Reem Kufi', sans-serif;
+    font-size:16px;
+    color:var(--gold);
+  }
+  .subhead .en{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color:var(--muted);
+    font-size:11px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+  }
+
+  .note{
+    text-align:center;
+    font-size:12.5px;
+    color:var(--muted);
+    margin:14px 0;
+    line-height:1.7;
+  }
+  .note .en{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    display:block;
+  }
+
+  /* ---------- DISH ROW ---------- */
+  .dish{ padding:14px 0; border-bottom:1px solid var(--divider); }
+  .dish:last-child{ border-bottom:none; }
+  .dish-head{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+  }
+  .name-ar{
+    font-weight:700;
+    font-size:16.5px;
+    color:var(--cream);
+    white-space:nowrap;
+  }
+  .leader{
+    flex:1;
+    border-bottom:2px dotted var(--gold-dim);
+    height:0;
+    margin-bottom:5px;
+  }
+  .price{
+    flex:0 0 auto;
+    font-family:'Reem Kufi', sans-serif;
+    font-size:15px;
+    color:#181410;
+    background:var(--gold);
+    padding:3px 11px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+  .name-en{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:13.5px;
+    color:var(--gold);
+    display:block;
+    margin-top:2px;
+  }
+  .desc{
+    font-size:12.5px;
+    color:var(--muted);
+    margin-top:5px;
+    line-height:1.7;
+  }
+  .desc-en{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    display:block;
+    margin-top:2px;
+    color:#8a7c66;
+  }
+
+  /* ---------- OFFERS GRID (breakfast) ---------- */
+  .offers-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin:16px 0 6px;
+  }
+  .offer-card{
+    border:1px solid var(--gold-dim);
+    border-radius:10px;
+    padding:14px 10px;
+    text-align:center;
+    background:linear-gradient(180deg, rgba(201,163,95,0.06), transparent);
+  }
+  .offer-card .label-ar{
+    font-weight:700;
+    font-size:14px;
+    color:var(--cream);
+  }
+  .offer-card .label-en{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    color:var(--muted);
+    font-size:11.5px;
+    margin-top:2px;
+    display:block;
+  }
+  .offer-card .price{
+    display:inline-block;
+    margin-top:10px;
+    font-size:16px;
+    padding:4px 14px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    max-width:var(--maxw);
+    margin:50px auto 0;
+    padding:24px 24px 10px;
+    text-align:center;
+    border-top:1px solid var(--divider);
+  }
+  footer .ar{ font-family:'Reem Kufi', sans-serif; color:var(--gold-light); font-size:15px; }
+  footer .en{ font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--muted); font-size:12px; margin-top:4px; }
+
+  /* dish rows are clickable */
+  .dish{ cursor:pointer; transition:background .15s ease; border-radius:8px; }
+  .dish:hover{ background:rgba(201,163,95,0.05); }
+  .dish-row-inner{ display:flex; gap:10px; align-items:flex-start; }
+  .dish-text{ flex:1; min-width:0; }
+  .dish-thumb{
+    width:46px; height:46px;
+    border-radius:8px;
+    object-fit:cover;
+    flex:0 0 auto;
+    border:1px solid var(--gold-dim);
+  }
+
+  /* ---------- DISH DETAIL MODAL ---------- */
+  .dish-modal-overlay{
+    position:fixed;
+    inset:0;
+    z-index:300;
+    background:rgba(6,5,4,0.78);
+    backdrop-filter:blur(6px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s ease;
+  }
+  .dish-modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .dish-modal{
+    width:min(380px, 100%);
+    max-height:88vh;
+    overflow-y:auto;
+    background:var(--bg-panel);
+    border:1px solid var(--gold-dim);
+    border-radius:18px;
+    position:relative;
+    transform:scale(.95) translateY(10px);
+    transition:transform .2s ease;
+    box-shadow:0 30px 70px rgba(0,0,0,0.6);
+  }
+  .dish-modal-overlay.open .dish-modal{ transform:scale(1) translateY(0); }
+  .dish-modal-close{
+    position:absolute;
+    top:12px;
+    left:12px;
+    z-index:2;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    border:none;
+    background:rgba(11,10,8,0.6);
+    color:var(--cream);
+    font-size:20px;
+    line-height:1;
+    cursor:pointer;
+  }
+  .dish-modal-image{
+    height:190px;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(160deg, rgba(201,163,95,0.18), rgba(20,17,13,1));
+    position:relative;
+    overflow:hidden;
+  }
+  .dish-modal-image img{ width:100%; height:100%; object-fit:cover; }
+  .dish-modal-placeholder{
+    font-family:'Reem Kufi', sans-serif;
+    font-size:56px;
+    color:var(--gold);
+    opacity:.55;
+  }
+  .dish-modal-photo-note{
+    position:absolute;
+    bottom:8px;
+    right:0; left:0;
+    text-align:center;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:10.5px;
+    color:var(--muted);
+  }
+  .dish-modal-body{ padding:22px 22px 26px; text-align:center; }
+  .dish-modal-name-ar{ font-family:'Reem Kufi', sans-serif; font-size:21px; color:var(--gold-light); }
+  .dish-modal-name-en{ font-family:'Cormorant Garamond', serif; font-style:italic; font-size:13px; color:var(--muted); margin-top:2px; }
+  .dish-modal-price{
+    display:inline-block;
+    margin-top:12px;
+    font-family:'Reem Kufi', sans-serif;
+    font-size:15px;
+    color:#181410;
+    background:var(--gold);
+    padding:4px 16px;
+    border-radius:100px;
+  }
+  .dish-modal-desc{ margin-top:14px; font-size:13.5px; color:var(--cream); line-height:1.8; }
+  .dish-modal-desc-en{ margin-top:6px; font-family:'Cormorant Garamond', serif; font-style:italic; font-size:12.5px; color:var(--muted); }
+
+
+  .chat-fab{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    z-index:200;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:var(--gold);
+    color:#181410;
+    border:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 26px rgba(0,0,0,0.55), 0 0 0 1px rgba(233,205,148,0.35);
+    transition:transform .2s ease;
+  }
+  .chat-fab:hover{ transform:scale(1.06); }
+  .chat-fab svg{ width:25px; height:25px; }
+
+  .chat-panel{
+    position:fixed;
+    bottom:88px;
+    right:20px;
+    z-index:200;
+    width:min(340px, calc(100vw - 32px));
+    height:min(480px, calc(100vh - 150px));
+    background:var(--bg-panel);
+    border:1px solid var(--gold-dim);
+    border-radius:16px;
+    box-shadow:0 24px 60px rgba(0,0,0,0.6);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(14px) scale(.97);
+    pointer-events:none;
+    transition:all .25s ease;
+  }
+  .chat-panel.open{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    pointer-events:auto;
+  }
+  .chat-header{
+    padding:14px 16px;
+    background:linear-gradient(180deg, rgba(201,163,95,0.14), transparent);
+    border-bottom:1px solid var(--divider);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .chat-header .title{ font-family:'Reem Kufi', sans-serif; color:var(--gold-light); font-size:15px; }
+  .chat-header .sub{ font-family:'Cormorant Garamond', serif; font-style:italic; color:var(--muted); font-size:11px; margin-top:2px; }
+  .chat-close{ background:none; border:none; color:var(--muted); font-size:22px; cursor:pointer; line-height:1; padding:2px 6px; }
+  .chat-messages{
+    flex:1;
+    overflow-y:auto;
+    padding:14px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .msg{
+    max-width:86%;
+    padding:9px 13px;
+    border-radius:14px;
+    font-size:13.5px;
+    line-height:1.7;
+    white-space:pre-wrap;
+  }
+  .msg.bot{
+    align-self:flex-start;
+    background:rgba(201,163,95,0.1);
+    border:1px solid var(--divider);
+    color:var(--cream);
+    border-bottom-left-radius:4px;
+  }
+  .msg.user{
+    align-self:flex-end;
+    background:var(--gold);
+    color:#181410;
+    border-bottom-right-radius:4px;
+  }
+  .typing-indicator{
+    align-self:flex-start;
+    color:var(--muted);
+    font-size:12px;
+    padding:2px 8px;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+  }
+  .chat-input-row{
+    display:flex;
+    gap:8px;
+    padding:10px;
+    border-top:1px solid var(--divider);
+  }
+  .chat-input-row input{
+    flex:1;
+    min-width:0;
+    background:#1c1712;
+    border:1px solid var(--divider);
+    border-radius:100px;
+    padding:9px 15px;
+    color:var(--cream);
+    font-family:'Tajawal', sans-serif;
+    font-size:13px;
+    outline:none;
+  }
+  .chat-input-row input:focus{ border-color:var(--gold); }
+  .chat-send{
+    background:var(--gold);
+    border:none;
+    border-radius:50%;
+    width:38px;
+    height:38px;
+    flex:0 0 auto;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#181410;
+  }
+  .chat-send:disabled{ opacity:.6; cursor:default; }
+  .chat-send svg{ width:17px; height:17px; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <svg class="ornament" viewBox="0 0 220 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="15" x2="80" y2="15" stroke="currentColor" stroke-width="1"/>
+      <line x1="140" y1="15" x2="220" y2="15" stroke="currentColor" stroke-width="1"/>
+      <path d="M110 4 L120 15 L110 26 L100 15 Z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+      <circle cx="110" cy="15" r="3" fill="currentColor"/>
+      <path d="M90 15 L100 15 M120 15 L130 15" stroke="currentColor" stroke-width="1"/>
+    </svg>
+    <div class="brand">FUNTOP</div>
+    <div class="brand-sub">Café &amp; Restaurant</div>
+    <div class="hero-title">قائمة الطعام والمشروبات</div>
+    <div class="hero-title-en">The Menu</div>
+  </header>
+
+  <nav class="cat-nav">
+    <div class="cat-nav-inner" id="catNav"></div>
+  </nav>
+
+  <main id="menuRoot"></main>
+
+  <footer>
+    <div class="ar">صحتين وهنا 🤍</div>
+    <div class="en">Bon appétit — from the FUNTOP kitchen</div>
+  </footer>
+
+  <div class="dish-modal-overlay" id="dishModalOverlay">
+    <div class="dish-modal">
+      <button class="dish-modal-close" id="dishModalClose" aria-label="إغلاق">×</button>
+      <div class="dish-modal-image" id="dishModalImage"></div>
+      <div class="dish-modal-body">
+        <div class="dish-modal-name-ar" id="dmNameAr"></div>
+        <div class="dish-modal-name-en" id="dmNameEn"></div>
+        <div><span class="dish-modal-price" id="dmPrice"></span></div>
+        <p class="dish-modal-desc" id="dmDescAr"></p>
+        <p class="dish-modal-desc-en" id="dmDescEn"></p>
+      </div>
+    </div>
+  </div>
+
+  <button class="chat-fab" id="chatFab" aria-label="اسأل مساعد FUNTOP عن الأطباق">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 3C6.48 3 2 6.9 2 11.5c0 2.42 1.25 4.6 3.25 6.13-.12.9-.5 2.1-1.35 3.37 1.6-.1 3.2-.7 4.35-1.5 1.15.32 2.4.5 3.75.5 5.52 0 10-3.9 10-8.5S17.52 3 12 3Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
+      <circle cx="8.3" cy="11.5" r="1" fill="currentColor"/>
+      <circle cx="12" cy="11.5" r="1" fill="currentColor"/>
+      <circle cx="15.7" cy="11.5" r="1" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-header">
+      <div>
+        <div class="title">مساعد FUNTOP</div>
+        <div class="sub">Your Dining Companion</div>
+      </div>
+      <button class="chat-close" id="chatClose" aria-label="إغلاق">×</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-row">
+      <input type="text" id="chatInput" placeholder="اسأل عن أي طبق أو اطلب اقتراح..." />
+      <button class="chat-send" id="chatSend" aria-label="إرسال">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12l16-7-5 7 5 7-16-7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </div>
+
+<script>
+const CUR = ' ₪';
+
+const DIVIDER_SVG = `<svg viewBox="0 0 140 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <line x1="0" y1="7" x2="52" y2="7" stroke="currentColor" stroke-width="1"/>
+  <line x1="88" y1="7" x2="140" y2="7" stroke="currentColor" stroke-width="1"/>
+  <path d="M70 1 L76 7 L70 13 L64 7 Z" stroke="currentColor" stroke-width="1" fill="none"/>
+</svg>`;
+
+const MENU = [
+  {
+    id:'breakfast', ar:'إفطار', en:'Breakfast',
+    blocks:[
+      {type:'dish', name_ar:'Funtop Breakfast', name_en:'Funtop Breakfast',
+        desc_ar:'حمص، لبنة، مخللات، أجبان، مرتديلا، زبدة، عسل، مربى، دبس تمر، خضار مقطعة، قشطة، بيض مقلي أو مسلوق، قلاية بندورة، جبنة مقلية، فول، منقوشة زعتر أو جبنة أو بيض.',
+        desc_en:'Hummus, Labneh, Pickles, Cheese Selection, Cold cuts, Butter, Honey, Jam, Date Molasses, Sliced Vegetables, Qishta Cream, Fried or Boiled Eggs, Tomato frying pan, Fried Cheese / Foul, Manousheh: Zaatar, Cheese, or Egg.'},
+      {type:'dish', name_ar:'اختر مشروبك', name_en:'Choose Your Drink',
+        desc_ar:'إبريق شاي / أمريكان كوفي / عصير برتقال / ليمون', desc_en:'Tea Pot / Americano Coffee / Orange Juice / Lemonade'},
+      {type:'subhead', ar:'أسعار الفطور', en:'Breakfast Offers'},
+      {type:'offers', items:[
+        {label_ar:'الشخص الواحد', label_en:'One-Person Offer', price:30},
+        {label_ar:'الشخصين', label_en:'Two-Person Offer', price:55},
+        {label_ar:'4 أشخاص', label_en:'Four-Person Offer', price:95},
+        {label_ar:'8 أشخاص (عائلة)', label_en:'Family Offer (8p)', price:180},
+      ]},
+      {type:'note', ar:'يبدأ تقديم الفطور من الساعة 8:00 صباحًا حتى الساعة 12:00 ظهرًا', en:'Breakfast served from 8:00 AM to 12:00 PM'},
+      {type:'dish', name_ar:'شوربة اليوم', name_en:'Soup of the Day',
+        desc_ar:'تُحضّر يوميًا بنكهات مختارة — يرجى سؤال النادل عن شوربة اليوم', desc_en:'Freshly prepared daily with selected flavors, please ask your waiter', price:18},
+    ]
+  },
+  {
+    id:'mezze', ar:'مازة عربية', en:'Arabic Mezze',
+    blocks:[
+      {type:'dish', name_ar:'حمص', name_en:'Hummus', desc_ar:'حمص بالطحينية وزيت الزيتون', desc_en:'Hummus blended with tahini and olive oil', price:17, img:'images/hummus.jpg'},
+      {type:'dish', name_ar:'متبل', name_en:'Moutabbal', desc_ar:'باذنجان مشوي ممزوج بالطحينة والثوم والليمون', desc_en:'Grilled eggplant blended with tahini, garlic, and lemon', price:17, img:'images/moutabbal.jpg'},
+      {type:'dish', name_ar:'سلطة تركية', name_en:'Turkish Salad', desc_ar:'خضار ناعمة مفرومة وبهارات', desc_en:'Finely chopped vegetables with spices', price:17, img:'images/turkish-salad.jpg'},
+      {type:'dish', name_ar:'بقدونسية', name_en:'Parsley Salad', desc_ar:'بقدونس مفروم ناعم مع طحينية، زيت الزيتون وعصير الليمون', desc_en:'Finely chopped parsley with tahini, olive oil, and lemon juice', price:17, img:'images/parsley-salad.jpg'},
+      {type:'dish', name_ar:'بابا غنوج', name_en:'Baba Ghanoush', desc_ar:'باذنجان مشوي مع خضار طازجة، زيت الزيتون، وعصير الليمون', desc_en:'Smoky grilled eggplant with chopped vegetables, olive oil, and lemon juice', price:17, img:'images/baba-ghanoush.jpg'},
+      {type:'dish', name_ar:'لبنة حارة', name_en:'Spicy Labneh', desc_ar:'لبنة كريمية ممزوجة بالفلفل الحار وزيت الزيتون ولمسة من الأعشاب', desc_en:'Creamy labneh blended with chili, olive oil, and a touch of herbs', price:17, img:'images/spicy-labneh.jpg'},
+      {type:'subhead', ar:'تشكيلات المازة', en:'Mezze Selections'},
+      {type:'dish', name_ar:'فلاحية + حمص + متبل + تبولة + لبنة حارة', name_en:'Falaheyeh + Hummus + Moutabbal + Tabbouleh + Spicy Labneh', desc_ar:'', desc_en:'', price:40},
+    ]
+  },
+  {
+    id:'taboon', ar:'من الطابون', en:'From the Taboon',
+    blocks:[
+      {type:'dish', name_ar:'بيتزا مارغريتا', name_en:'Margherita Pizza', desc_ar:'بيتزا كلاسيكية بصلصة الطماطم، جبنة الموزاريلا، ولمسة من الأعشاب', desc_en:'Classic pizza with tomato sauce, mozzarella cheese, and a touch of herbs', price:33, img:'images/margherita.jpg'},
+      {type:'dish', name_ar:'بيتزا بيبروني', name_en:'Pepperoni Pizza', desc_ar:'بيتزا بصلصة الطماطم، جبنة الموزاريلا، وشرائح البيبروني', desc_en:'Pizza with tomato sauce, mozzarella cheese, and pepperoni slices', price:35, img:'images/pepperoni.jpg'},
+      {type:'dish', name_ar:'بيتزا خضار', name_en:'Vegetable Pizza', desc_ar:'بيتزا بصلصة الطماطم، جبنة الموزاريلا، وتشكيلة خضار طازجة', desc_en:'Pizza with tomato sauce, mozzarella cheese, and a selection of fresh vegetables', price:35, img:'images/vegetable-pizza.jpg'},
+      {type:'dish', name_ar:'بيتزا باربكيو', name_en:'BBQ Pizza', desc_ar:'بيتزا بصلصة الباربكيو، جبنة الموزاريلا، وقطع الدجاج', desc_en:'Pizza with BBQ sauce, mozzarella cheese, and chicken pieces', price:35, img:'images/bbq-pizza.jpg'},
+    ]
+  },
+  {
+    id:'main', ar:'الأطباق الرئيسية', en:'Main Dishes',
+    blocks:[
+      {type:'dish', name_ar:'فيليه ستيك عجل', name_en:'Veal Fillet Steak', desc_ar:'250 غرام فيليه ستيك عجل، يقدم مع اختيارك من صوص المشروم أو صوص الفلفل مع بطاطا مهروسة وخضار سوتيه', desc_en:'250g veal fillet steak, served with mushroom or pepper sauce, mashed potatoes and sautéed vegetables', price:90, img:'images/veal-fillet.jpg'},
+      {type:'dish', name_ar:'فيليه أنتركوت', name_en:'Entrecote Steak', desc_ar:'فيليه أنتركوت مشوي، يقدم مع اختيارك من صوص المشروم أو صوص الفلفل مع بطاطا مهروسة وخضار سوتيه', desc_en:'Grilled entrecote steak, served with mushroom or pepper sauce, mashed potatoes and sautéed vegetables', price:100, img:'images/entrecote.jpg'},
+      {type:'dish', name_ar:'صدر دجاج', name_en:'Chicken Breast', desc_ar:'300 غرام صدر دجاج مشوي، يقدم مع اختيارك من صوص المشروم أو صوص الفلفل مع بطاطا مهروسة وخضار سوتيه', desc_en:'300g grilled chicken breast, served with mushroom or pepper sauce, mashed potatoes and sautéed vegetables', price:55, img:'images/chicken-breast.jpg'},
+      {type:'dish', name_ar:'فخارة لحم', name_en:'Meat Clay Pot', desc_ar:'قطع لحم مطهوة داخل الفخارة مع الخضار والصوص الخاص، تقدم مع أرز أبيض', desc_en:'Meat pieces cooked in a clay pot with vegetables and special sauce, served with white rice', price:60, img:'images/meat-claypot.jpg'},
+      {type:'dish', name_ar:'فخارة دجاج', name_en:'Chicken Clay Pot', desc_ar:'قطع دجاج مطهوة داخل الفخارة مع الخضار والصوص الخاص، تقدم مع أرز أبيض', desc_en:'Chicken pieces cooked in a clay pot with vegetables and special sauce, served with white rice', price:49, img:'images/chicken-claypot.jpg'},
+      {type:'dish', name_ar:'فخارة جمبري', name_en:'Shrimp Clay Pot', desc_ar:'جمبري مطهو داخل الفخارة مع الخضار والصوص الخاص، تقدم مع أرز أبيض', desc_en:'Shrimp cooked in a clay pot with vegetables and special sauce, served with white rice', price:65, img:'images/shrimp-claypot.jpg'},
+      {type:'dish', name_ar:'سالمون ستيك', name_en:'Salmon Steak', desc_ar:'قطعة سالمون مشوية تقدم مع صوص الليمون، بطاطا مهروسة، وخضار سوتيه', desc_en:'Grilled salmon steak served with lemon sauce, mashed potatoes, and sautéed vegetables', price:89, img:'images/salmon-steak.jpg'},
+      {type:'dish', name_ar:'صاجية خاروف', name_en:'Lamb Sajiyah', desc_ar:'قطع لحم خاروف مطهوة على الصاج مع البصل، الفلفل، والبهارات الخاصة', desc_en:'Lamb pieces cooked on the saj with onion, pepper, and special spices', price:110, img:'images/lamb-sajiyah.jpg'},
+      {type:'dish', name_ar:'صاجية عجل', name_en:'Veal Sajiyah', desc_ar:'قطع لحم عجل مطهوة على الصاج مع البصل، الفلفل، والبهارات الخاصة', desc_en:'Veal pieces cooked on the saj with onion, pepper, and special spices', price:90, img:'images/veal-sajiyah.jpg'},
+    ]
+  },
+  {
+    id:'grills', ar:'المشاوي', en:'Grills',
+    blocks:[
+      {type:'dish', name_ar:'كباب', name_en:'Kebab', desc_ar:'300 غرام كباب، 3 أسياخ مشوية، تقدم مع بطاطا شيبس', desc_en:'300g kebab, 3 grilled skewers, served with chips', price:49},
+      {type:'dish', name_ar:'شقف خروف', name_en:'Lamb Cubes', desc_ar:'200 غرام شقف خروف مشوية، تقدم مع بطاطا شيبس', desc_en:'200g grilled lamb cubes, served with chips', price:85},
+      {type:'dish', name_ar:'شيش طاووق', name_en:'Shish Tawook', desc_ar:'3 أسياخ شيش طاووق مشوية، تقدم مع بطاطا شيبس', desc_en:'3 grilled shish tawook skewers, served with chips', price:35},
+      {type:'dish', name_ar:'عرايس', name_en:'Arayes', desc_ar:'عرايس لحمة خروف، 8 قطع، تقدم مع بطاطا شيبس', desc_en:'Lamb arayes, 8 pieces, served with chips', price:39},
+      {type:'dish', name_ar:'ريش خروف', name_en:'Lamb Chops', desc_ar:'ريش خروف مشوية على الفحم', desc_en:'Charcoal-grilled lamb chops', price:79},
+      {type:'dish', name_ar:'مشاوي مشكل', name_en:'Mixed Grill', desc_ar:'سيخ شيش طاووق، سيخ كباب، ريش خروف، وسيخ شقف، تقدم مع حمص، متبل، وبطاطا شيبس', desc_en:'Shish tawook, kebab, lamb chop, and lamb cubes skewers, served with hummus, moutabbal, and chips', price:90},
+      {type:'dish', name_ar:'أجنحة مشوية', name_en:'Grilled Wings', desc_ar:'6 حبات أجنحة دجاج مشوية، تقدم مع بطاطا شيبس', desc_en:'6 grilled chicken wings, served with chips', price:37},
+      {type:'dish', name_ar:'نصف دجاج مشوي', name_en:'Half Grilled Chicken', desc_ar:'نصف دجاج مشوي على الفحم، يقدم مع بطاطا، حمص، ومثومة', desc_en:'Charcoal-grilled half chicken, served with fries, hummus, and garlic sauce', price:30},
+      {type:'dish', name_ar:'دجاجة كاملة مشوية', name_en:'Whole Grilled Chicken', desc_ar:'دجاجة كاملة مشوية على الفحم، تقدم مع بطاطا، حمص، ومثومة', desc_en:'Charcoal-grilled whole chicken, served with fries, hummus, and garlic sauce', price:50},
+      {type:'dish', name_ar:'سمك لفراك مشوي', name_en:'Grilled Lafrak Fish', desc_ar:'سمك لفراك مشوي بتتبيلة الليمون، زيت الزيتون، والأعشاب الطازجة', desc_en:'Grilled Lafrak fish marinated with lemon, olive oil, and fresh herbs', price:75},
+      {type:'dish', name_ar:'سمك دنيس مشوي', name_en:'Grilled Sea Bream', desc_ar:'سمك دنيس مشوي بتتبيلة خفيفة من الليمون، الثوم، وزيت الزيتون', desc_en:'Grilled sea bream with a light marinade of lemon, garlic, and olive oil', price:75},
+    ]
+  },
+  {
+    id:'cold-drinks', ar:'مشروبات باردة', en:'Cold Drinks',
+    blocks:[
+      {type:'dish', name_ar:'ايس كوفي', name_en:'Iced Coffee', price:12},
+      {type:'dish', name_ar:'ايس تي خوخ', name_en:'Peach Iced Tea', price:12},
+      {type:'dish', name_ar:'ايس موكا', name_en:'Iced Mocha', price:12},
+      {type:'dish', name_ar:'ايس أمريكانو', name_en:'Iced Americano', price:12},
+      {type:'dish', name_ar:'فرابتشينو كراميل وشوكولاته', name_en:'Caramel & Chocolate Frappuccino', price:12},
+      {type:'dish', name_ar:'ماتشا ستروبيري', name_en:'Strawberry Matcha', price:20},
+      {type:'dish', name_ar:'ماتشا بلوبيري', name_en:'Blueberry Matcha', price:20},
+      {type:'dish', name_ar:'ايس لاتيه', name_en:'Iced Latte', price:15},
+      {type:'dish', name_ar:'بيستاشيو لاتيه', name_en:'Pistachio Latte', price:15},
+      {type:'dish', name_ar:'سبانيش لاتيه', name_en:'Spanish Latte', price:15},
+      {type:'dish', name_ar:'سولتد كراميل', name_en:'Salted Caramel', price:15},
+      {type:'dish', name_ar:'ايس بندق لاتيه', name_en:'Iced Hazelnut Latte', price:15},
+      {type:'dish', name_ar:'ايس فانيلا', name_en:'Iced Vanilla', price:15},
+      {type:'dish', name_ar:'كراميل لاتيه', name_en:'Caramel Latte', price:15},
+    ]
+  },
+  {
+    id:'hot-drinks', ar:'مشروبات ساخنة', en:'Hot Drinks',
+    blocks:[
+      {type:'dish', name_ar:'اسبريسو', name_en:'Espresso', price:5},
+      {type:'dish', name_ar:'اسبريسو دبل', name_en:'Double Espresso', price:8},
+      {type:'dish', name_ar:'أمريكانو', name_en:'Americano', price:10},
+      {type:'dish', name_ar:'قهوة عربية', name_en:'Arabic Coffee', price:8},
+      {type:'dish', name_ar:'هوت شوكليت بالمارشميلو', name_en:'Hot Chocolate with Marshmallow', price:12},
+      {type:'dish', name_ar:'هوت بندق', name_en:'Hot Hazelnut', price:10},
+      {type:'dish', name_ar:'هوت لوتس', name_en:'Hot Lotus', price:10},
+      {type:'dish', name_ar:'أفوخ', name_en:'Afoog', price:10},
+      {type:'dish', name_ar:'سحلب', name_en:'Sahlab', price:8},
+      {type:'dish', name_ar:'نسكافيه', name_en:'Nescafe', price:10},
+      {type:'dish', name_ar:'أفوجاتو', name_en:'Affogato', price:12},
+      {type:'dish', name_ar:'فرنش فانيلا', name_en:'French Vanilla', price:10},
+      {type:'dish', name_ar:'سولتد كراميل', name_en:'Salted Caramel', price:10},
+      {type:'dish', name_ar:'شاي لاتيه', name_en:'Chai Latte', price:10},
+      {type:'dish', name_ar:'زنجبيل مع عسل', name_en:'Ginger with Honey', price:8},
+      {type:'dish', name_ar:'خلطة أعشاب', name_en:'Herbal Blend', price:8},
+      {type:'dish', name_ar:'شاي + نعنع / ميرمية', name_en:'Tea with Mint / Sage', price:5},
+      {type:'dish', name_ar:'شاي أخضر', name_en:'Green Tea', price:5},
+    ]
+  },
+  {
+    id:'juices', ar:'عصائر طبيعية', en:'Natural Juices & Cocktails',
+    blocks:[
+      {type:'dish', name_ar:'عصير برتقال', name_en:'Orange Juice', price:12},
+      {type:'dish', name_ar:'عصير ليمون ونعنع', name_en:'Lemon Mint Juice', price:12},
+      {type:'dish', name_ar:'عصير جزر', name_en:'Carrot Juice', price:10},
+      {type:'dish', name_ar:'عصير ليموناد', name_en:'Lemonade', price:10},
+      {type:'dish', name_ar:'عصير تفاح', name_en:'Apple Juice', price:12},
+      {type:'dish', name_ar:'عصير بنجر', name_en:'Beetroot Juice', price:15},
+      {type:'dish', name_ar:'عصير رمان (موسمي)', name_en:'Pomegranate (Seasonal)', price:18},
+      {type:'dish', name_ar:'عصير جريبفروت (موسمي)', name_en:'Grapefruit (Seasonal)', price:12},
+      {type:'dish', name_ar:'عصير بطيخ (موسمي)', name_en:'Watermelon (Seasonal)', price:12},
+      {type:'subhead', ar:'الكوكتيل', en:'Cocktails'},
+      {type:'dish', name_ar:'FUNTOP كوكتيل', name_en:'FUNTOP Cocktail', price:22},
+      {type:'dish', name_ar:'كوكتيل قشطة وعسل', name_en:'Cream & Honey Cocktail', price:20},
+      {type:'dish', name_ar:'كوكتيل أفوكادو', name_en:'Avocado Cocktail', price:20},
+      {type:'dish', name_ar:'كوكتيل بروتين', name_en:'Protein Cocktail', price:25},
+      {type:'dish', name_ar:'كوكتيل فواكه', name_en:'Fruit Cocktail', price:15},
+    ]
+  },
+  {
+    id:'smoothies', ar:'سموذي', en:'Smoothies',
+    blocks:[
+      {type:'dish', name_ar:'سموذي فراولة', name_en:'Strawberry Smoothie', price:15},
+      {type:'dish', name_ar:'سموذي مانجا', name_en:'Mango Smoothie', price:15},
+      {type:'dish', name_ar:'سموذي أناناس', name_en:'Pineapple Smoothie', price:15},
+      {type:'dish', name_ar:'سموذي بلوبيري', name_en:'Blueberry Smoothie', price:15},
+      {type:'dish', name_ar:'سموذي مكس بيري', name_en:'Mixed Berry Smoothie', price:15},
+      {type:'dish', name_ar:'سموذي سمفلورا', name_en:'Semflora Smoothie', price:15},
+      {type:'note', ar:'* إختر الخلطة', en:'Choose your blend'},
+    ]
+  },
+  {
+    id:'milkshakes', ar:'ميلك شيك', en:'Milkshakes',
+    blocks:[
+      {type:'dish', name_ar:'ميلك شيك أوريو', name_en:'Oreo Milkshake', price:15},
+      {type:'dish', name_ar:'ميلك شيك كراميل', name_en:'Caramel Milkshake', price:15},
+      {type:'dish', name_ar:'ميلك شيك فانيلا', name_en:'Vanilla Milkshake', price:15},
+      {type:'dish', name_ar:'ميلك شيك لوتس', name_en:'Lotus Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك نوتيلا', name_en:'Nutella Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك فراولة', name_en:'Strawberry Milkshake', price:15},
+      {type:'dish', name_ar:'ميلك شيك بيستاشيو', name_en:'Pistachio Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك كيندر', name_en:'Kinder Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك بلو انجل', name_en:'Blue Angel Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك مستكة عربية', name_en:'Arabic Mastic Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك سيريلاك', name_en:'Cerelac Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك كورنيتو', name_en:'Cornetto Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك بينا كولادا', name_en:'Piña Colada Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك بابل جم', name_en:'Bubble Gum Milkshake', price:18},
+      {type:'dish', name_ar:'ميلك شيك مكس بيري', name_en:'Mixed Berry Milkshake', price:18},
+    ]
+  },
+  {
+    id:'soft-drinks', ar:'مشروبات غازية', en:'Soft Drinks',
+    blocks:[
+      {type:'dish', name_ar:'كولا', name_en:'Cola', price:5},
+      {type:'dish', name_ar:'سبرايت', name_en:'Sprite', price:5},
+      {type:'dish', name_ar:'فانتا', name_en:'Fanta', price:5},
+      {type:'dish', name_ar:'بلو', name_en:'BLU', price:6},
+      {type:'dish', name_ar:'XL', name_en:'XL', price:6},
+      {type:'dish', name_ar:'بفاريا', name_en:'Bavaria', price:5},
+      {type:'dish', name_ar:'صودا', name_en:'Soda', price:5},
+      {type:'dish', name_ar:'سفن أب', name_en:'7UP', price:5},
+      {type:'dish', name_ar:'بيبسي', name_en:'Pepsi', price:5},
+      {type:'dish', name_ar:'ماء صغير', name_en:'Small Water', price:3},
+      {type:'dish', name_ar:'ماء كبير', name_en:'Large Water', price:8},
+    ]
+  },
+  {
+    id:'argileh', ar:'الأراجيل', en:'Argileh',
+    blocks:[
+      {type:'dish', name_ar:'تفاحتين عادي', name_en:'Normal Two Apples', price:20},
+      {type:'dish', name_ar:'تفاحتين نخلة', name_en:'Two Apples Nakhla', price:30},
+      {type:'dish', name_ar:'ليمون ونعنع', name_en:'Lemon & Mint', price:20},
+      {type:'dish', name_ar:'بطيخ ونعنع', name_en:'Watermelon & Mint', price:20},
+      {type:'dish', name_ar:'بلوبيري', name_en:'Blueberry', price:20},
+      {type:'dish', name_ar:'LOVE 66', name_en:'LOVE 66', price:20},
+      {type:'dish', name_ar:'أرجيلة فريش', name_en:'Fresh Argileh', desc_ar:'برتقال وتفاح', desc_en:'Orange & Apple', price:30},
+      {type:'dish', name_ar:'ارجيلة سهم وقرفة', name_en:'Sahm & Cinnamon', price:20},
+      {type:'dish', name_ar:'Funtop أرجيلة', name_en:'Funtop Argileh', price:30},
+      {type:'dish', name_ar:'ارجيلة مانجا', name_en:'Mango', price:20},
+    ]
+  },
+  {
+    id:'cakes', ar:'الكيك', en:'Cakes & Chilled Desserts',
+    blocks:[
+      {type:'dish', name_ar:'كيك العسل', name_en:'Honey Cake', price:15},
+      {type:'dish', name_ar:'رافيلو موس', name_en:'Raffaello Mousse', price:15},
+      {type:'dish', name_ar:'كيكة الفيريرو روشيه', name_en:'Ferrero Rocher Cake', price:15},
+      {type:'dish', name_ar:'موس تشوكليت', name_en:'Chocolate Mousse', price:18},
+      {type:'dish', name_ar:'كيكة الجزر', name_en:'Carrot Cake', price:18},
+      {type:'dish', name_ar:'اسبريسو كراميل', name_en:'Espresso Caramel', price:18},
+      {type:'dish', name_ar:'تشيز كيك اللوتس', name_en:'Lotus Cheesecake', price:18},
+      {type:'dish', name_ar:'تشيز كيك أوريو', name_en:'Oreo Cheesecake', price:18},
+      {type:'dish', name_ar:'تشيزكيك نيويورك بلوبيري', name_en:'New York Blueberry Cheesecake', price:18},
+      {type:'dish', name_ar:'كيك سان سيباستيان', name_en:'San Sebastian Cake', price:18},
+      {type:'dish', name_ar:'سوفليه', name_en:'Soufflé', price:18},
+      {type:'dish', name_ar:'ريد فيلفيت', name_en:'Red Velvet', price:18},
+    ]
+  },
+  {
+    id:'sweets', ar:'حلويات', en:'Sweet Treats',
+    blocks:[
+      {type:'dish', name_ar:'كريب كلاسيك', name_en:'Classic Crepe', price:12},
+      {type:'dish', name_ar:'كريب دبي', name_en:'Dubai Crepe', price:20},
+      {type:'dish', name_ar:'كريب فواكه', name_en:'Fruit Crepe', price:18},
+      {type:'dish', name_ar:'كريب فيتوتشيني', name_en:'Fettuccine Crepe', price:20},
+      {type:'dish', name_ar:'سوشي كريب', name_en:'Crepe Sushi', price:20},
+      {type:'dish', name_ar:'فشافيش كلاسيك', name_en:'Classic Fashafish', price:12},
+      {type:'dish', name_ar:'فشافيش فواكه', name_en:'Fruit Fashafish', price:18},
+      {type:'dish', name_ar:'وافل كلاسيك', name_en:'Classic Waffle', price:18},
+      {type:'dish', name_ar:'وافل فواكه', name_en:'Fruit Waffle', price:22},
+      {type:'dish', name_ar:'وافل أصابع', name_en:'Waffle Fingers', price:15},
+      {type:'dish', name_ar:'كنافة اسطنبولي', name_en:'İstanbul Kunafa', price:18},
+      {type:'dish', name_ar:'كنافة اسطنبولي مع بوظة', name_en:'İstanbul Kunafa with Ice Cream', price:25},
+      {type:'dish', name_ar:'حلويات FUNTOP مشكلة', name_en:'Mixed FUNTOP Sweets', price:40},
+      {type:'dish', name_ar:'وافل بلجيكي كلاسيكي', name_en:'Classic Belgian Waffle', price:18},
+      {type:'dish', name_ar:'وافل بلجيكي مع فواكه', name_en:'Belgian Waffle with Fruits', price:22},
+    ]
+  },
+];
+
+function esc(s){ return (s || ''); }
+
+function renderDish(b, key){
+  const hasDesc = b.desc_ar || b.desc_en;
+  const thumb = b.img ? `<img class="dish-thumb" src="${b.img}" alt="" loading="lazy">` : '';
+  return `
+  <div class="dish" data-key="${key || ''}">
+    <div class="dish-row-inner">
+      ${thumb}
+      <div class="dish-text">
+        <div class="dish-head">
+          <span class="name-ar">${esc(b.name_ar)}</span>
+          <span class="leader"></span>
+          ${b.price ? `<span class="price">${b.price}${CUR}</span>` : ''}
+        </div>
+        ${b.name_en ? `<span class="name-en">${esc(b.name_en)}</span>` : ''}
+        ${hasDesc ? `<p class="desc">${esc(b.desc_ar)}${b.desc_en ? `<span class="desc-en">${esc(b.desc_en)}</span>` : ''}</p>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderOffers(b){
+  return `<div class="offers-grid">
+    ${b.items.map(o => `
+      <div class="offer-card">
+        <div class="label-ar">${esc(o.label_ar)}</div>
+        <span class="label-en">${esc(o.label_en)}</span>
+        <div><span class="price">${o.price}${CUR}</span></div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function renderBlock(b, key){
+  if(b.type === 'dish') return renderDish(b, key);
+  if(b.type === 'offers') return renderOffers(b);
+  if(b.type === 'subhead') return `<div class="subhead"><div class="ar">${esc(b.ar)}</div><div class="en">${esc(b.en)}</div></div>`;
+  if(b.type === 'note') return `<div class="note">${esc(b.ar)}<span class="en">${esc(b.en)}</span></div>`;
+  return '';
+}
+
+function build(){
+  const nav = document.getElementById('catNav');
+  const root = document.getElementById('menuRoot');
+
+  MENU.forEach((cat, i) => {
+    const pill = document.createElement('button');
+    pill.className = 'cat-pill' + (i === 0 ? ' active' : '');
+    pill.textContent = cat.ar;
+    pill.onclick = () => document.getElementById(cat.id).scrollIntoView({behavior:'smooth', block:'start'});
+    pill.dataset.target = cat.id;
+    nav.appendChild(pill);
+
+    const section = document.createElement('section');
+    section.className = 'cat';
+    section.id = cat.id;
+    section.innerHTML = `
+      <div class="cat-header">
+        <div class="ar">${cat.ar}</div>
+        <div class="en">${cat.en}</div>
+      </div>
+      <div class="divider">${DIVIDER_SVG}</div>
+      ${cat.blocks.map((b, bi) => renderBlock(b, `${cat.id}-${bi}`)).join('')}
+    `;
+    root.appendChild(section);
+  });
+
+  // highlight active pill on scroll
+  const sections = MENU.map(c => document.getElementById(c.id));
+  const pills = Array.from(nav.children);
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        pills.forEach(p => p.classList.remove('active'));
+        const active = pills.find(p => p.dataset.target === entry.target.id);
+        if(active){
+          active.classList.add('active');
+          active.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+        }
+      }
+    });
+  }, { rootMargin: '-90px 0px -70% 0px', threshold: 0 });
+  sections.forEach(s => io.observe(s));
+
+  // build a lookup of every dish by its unique key, for the detail modal
+  window.DISH_BY_KEY = {};
+  MENU.forEach(cat => {
+    cat.blocks.forEach((b, bi) => {
+      if(b.type === 'dish') window.DISH_BY_KEY[`${cat.id}-${bi}`] = b;
+    });
+  });
+
+  root.addEventListener('click', (e) => {
+    const card = e.target.closest('.dish');
+    if(!card) return;
+    const dish = window.DISH_BY_KEY[card.dataset.key];
+    if(dish) openDishModal(dish);
+  });
+}
+
+/* ---------- DISH DETAIL MODAL ---------- */
+const dishModalOverlay = document.getElementById('dishModalOverlay');
+const dishModalClose = document.getElementById('dishModalClose');
+const dishModalImage = document.getElementById('dishModalImage');
+
+function openDishModal(dish){
+  document.getElementById('dmNameAr').textContent = dish.name_ar || '';
+  document.getElementById('dmNameEn').textContent = dish.name_en || '';
+  document.getElementById('dmPrice').textContent = dish.price ? `${dish.price}${CUR}` : '';
+  document.getElementById('dmPrice').style.display = dish.price ? 'inline-block' : 'none';
+  document.getElementById('dmDescAr').textContent = dish.desc_ar || '';
+  document.getElementById('dmDescEn').textContent = dish.desc_en || '';
+
+  // show real photo if provided (dish.img), otherwise an elegant placeholder
+  if(dish.img){
+    dishModalImage.innerHTML = `<img src="${dish.img}" alt="${esc(dish.name_ar)}">`;
+  }else{
+    const initial = (dish.name_ar || '؟').trim().charAt(0);
+    dishModalImage.innerHTML = `<span class="dish-modal-placeholder">${initial}</span><span class="dish-modal-photo-note">الصورة قريبًا</span>`;
+  }
+  dishModalOverlay.classList.add('open');
+}
+function closeDishModal(){ dishModalOverlay.classList.remove('open'); }
+dishModalClose.addEventListener('click', closeDishModal);
+dishModalOverlay.addEventListener('click', (e) => { if(e.target === dishModalOverlay) closeDishModal(); });
+
+build();
+
+/* ---------- AI CONCIERGE (offline, rule-based — works on any hosting) ---------- */
+
+// flatten all dishes with their category for quick lookup
+const ALL_DISHES = MENU.flatMap(cat =>
+  cat.blocks.filter(b => b.type === 'dish').map(b => ({ ...b, cat_ar: cat.ar, cat_id: cat.id }))
+);
+
+function norm(s){
+  return (s || '')
+    .toString()
+    .replace(/[\u064B-\u065F\u0670]/g, '')
+    .replace(/[إأآا]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه')
+    .replace(/ؤ/g, 'و')
+    .replace(/ئ/g, 'ي')
+    .toLowerCase()
+    .trim();
+}
+
+function fmtItems(items, n){
+  return items.slice(0, n)
+    .map(b => `• ${b.name_ar}${b.name_en ? ' (' + b.name_en + ')' : ''} — ${b.price}₪`)
+    .join('\n');
+}
+
+function itemsOfCategory(catId){
+  return ALL_DISHES.filter(d => d.cat_id === catId && d.price);
+}
+
+// keyword => { intro, catIds }
+const INTENTS = [
+  { kws:['فطور','افطار','breakfast'], intro:'يومك يبدأ صح مع فطورنا الغني 🌞 جرب:', cats:['breakfast'] },
+  { kws:['مازه','مازة','مقبلات','حمص','متبل','بابا غنوج','لبنه حاره'], intro:'مازتنا العربية طازة ومحضّرة بعناية، شوف هاي:', cats:['mezze'] },
+  { kws:['بيتزا','طابون','pizza'], intro:'من فرن الطابون مباشرة، سخنة وطازة:', cats:['taboon'] },
+  { kws:['مشاوي','مشويات','كباب','شيش طاووق','عرايس','ريش','فحم','grill'], intro:'مشاوينا ع الفحم، نكهة ما بتتنسى 🔥', cats:['grills'] },
+  { kws:['سمك','جمبري','سالمون','فيش','بحريات'], intro:'من أطيب أطباق البحر عنا:', cats:['main'] },
+  { kws:['ستيك','عجل','خاروف','صاجيه','فخاره'], intro:'أطباقنا الرئيسية بتشبع نظر وبطن 😋', cats:['main'] },
+  { kws:['حار','سبايسي','حاره'], intro:'بتحب الحراقة؟ جرب:', cats:['mezze'] },
+  { kws:['حلا','حلويات','كيك','كنافه','وافل','تشيزكيك','sweet','dessert'], intro:'الحلو ما بينحرم 🍰 عندنا:', cats:['cakes','sweets'] },
+  { kws:['عصير','سموذي','كوكتيل','بارد','ايس'], intro:'مشروب بارد ومنعش؟ اختار من هون:', cats:['cold-drinks','juices','smoothies'] },
+  { kws:['قهوه','شاي','نسكافيه','ساخن','اسبريسو'], intro:'كاسة دافية بتناسب أي وقت:', cats:['hot-drinks'] },
+  { kws:['ميلك شيك','شيك'], intro:'ميلك شيك كريمي ولذيذ:', cats:['milkshakes'] },
+  { kws:['غازيه','كولا','سفن اب','بيبسي'], intro:'مشروبات غازية باردة:', cats:['soft-drinks'] },
+  { kws:['ارجيله','نرجيله','شيشه','hookah'], intro:'أرجيلة تناسب جلستك:', cats:['argileh'] },
+  { kws:['عائله','مجموعه','اشخاص','كبيره'], intro:'للمجموعات، بننصحك بعروض الفطور العائلية أو المشاوي المشكل:', cats:['breakfast','grills'] },
+];
+
+const GREETINGS = ['مرحبا','هلا','السلام','صباح الخير','مساء الخير','هاي','اهلين','hi','hello'];
+const THANKS = ['شكرا','يعطيك العافيه','تسلم','thanks','thank you'];
+const RECOMMEND_KWS = ['رشحلي','ناصحني','اقترح','شو تنصح','ايش الافضل','الافضل','مميز','بتنصحني','شو الاحسن','specialty','recommend','best'];
+const STOPWORDS = new Set(['شو','في','فيه','فيها','عندكم','عندك','بدي','ممكن','هل','او','ولا','من','على','مع','كيف','ايش','لو','بس','يا','انا','احنا','بكام','كم','سعر','اش','هاد','هاي','الي','يلي','عن','لي','لك','اريد','بديش','لا','نعم','وش'].map(norm));
+
+function tokenize(u){
+  return u.split(/[\s,،.؟!]+/)
+    .map(norm)
+    .filter(t => t.length >= 2 && !STOPWORDS.has(t));
+}
+
+function findDishMatch(userNorm){
+  return ALL_DISHES.find(d => {
+    const nAr = norm(d.name_ar);
+    const nEn = norm(d.name_en);
+    return (nAr && nAr.length > 1 && userNorm.includes(nAr)) ||
+           (nEn && nEn.length > 1 && userNorm.includes(nEn));
+  });
+}
+
+// searches dish names + descriptions (ingredients) for any matching token
+function searchByTokens(userNorm){
+  const tokens = tokenize(userNorm);
+  if(!tokens.length) return [];
+  const scored = ALL_DISHES.map(d => {
+    const hay = norm(`${d.name_ar} ${d.name_en || ''} ${d.desc_ar || ''} ${d.desc_en || ''}`);
+    let score = 0;
+    tokens.forEach(t => { if(hay.includes(t)) score++; });
+    return { d, score };
+  }).filter(x => x.score > 0).sort((a, b) => b.score - a.score);
+  return scored.map(x => x.d);
+}
+
+function describeDish(d){
+  let reply = `${d.name_ar}${d.name_en ? ' (' + d.name_en + ')' : ''} — ${d.price}₪.`;
+  if(d.desc_ar) reply += `\n${d.desc_ar}`;
+  return reply;
+}
+
+function getReply(userText){
+  const u = norm(userText);
+
+  if(GREETINGS.some(g => u.includes(norm(g)))){
+    return 'أهلًا وسهلًا فيك 🌟 تحب أقترحلك شي معين (فطور، مشاوي، حلويات، مشروبات...)، أو عندك طبق معين بالبال؟';
+  }
+  if(THANKS.some(t => u.includes(norm(t)))){
+    return 'العفو، تستاهل 🤍 صحتين وهنا، وبالخدمة إذا حبيت تسأل عن شي تاني.';
+  }
+  if(RECOMMEND_KWS.some(k => u.includes(norm(k)))){
+    const picks = ALL_DISHES.filter(d =>
+      ['مشاوي مشكل','فيليه انتركوت','FUNTOP كوكتيل','كنافه اسطنبولي','فخاره دجاج']
+        .some(name => norm(d.name_ar).includes(norm(name)))
+    );
+    const list = picks.length ? picks : ALL_DISHES.slice(0, 4);
+    return `من تجربتنا، هدول من أكتر الأصناف يلي بتعجب زبائننا:\n${fmtItems(list, 4)}\n\nتحب توصيف أكتر عن أي وحدة منهم؟`;
+  }
+
+  // 1) specific dish mentioned directly
+  const dish = findDishMatch(u);
+  if(dish){
+    return describeDish(dish) + '\nتحب أقترحلك شي يترافق معه؟';
+  }
+
+  // 2) category-level intent (fixed keyword sets)
+  for(const intent of INTENTS){
+    if(intent.kws.some(k => u.includes(norm(k)))){
+      const items = intent.cats.flatMap(itemsOfCategory);
+      if(items.length){
+        return `${intent.intro}\n${fmtItems(items, 4)}\n\nتحب تفاصيل أكتر عن أي صنف منهم؟`;
+      }
+    }
+  }
+
+  // 3) budget
+  if(u.includes(norm('رخيص')) || u.includes(norm('اقتصاد')) || u.includes(norm('سعر منيح'))){
+    const cheap = ALL_DISHES.filter(d => d.price && d.price <= 15).sort((a, b) => a.price - b.price);
+    return `أطباق ومشروبات بأسعار مناسبة للجميع:\n${fmtItems(cheap, 5)}`;
+  }
+
+  // 4) smart fallback: search dish names + ingredient descriptions for matching words
+  const matches = searchByTokens(u);
+  if(matches.length === 1){
+    return describeDish(matches[0]);
+  }
+  if(matches.length > 1){
+    return `لقيتلك كم خيار يمكن يناسبك:\n${fmtItems(matches, 4)}\n\nتحب أفصّلك أكتر عن أي وحدة؟`;
+  }
+
+  // 5) generic fallback
+  return 'ممكن توضحلي أكتر شو بتفضل؟ (فطور، مازة، مشاوي، بيتزا، حلويات، مشروبات ساخنة أو باردة، أرجيله) وبقترحلك أطيب اللي عنا 🙏';
+}
+
+const chatFab = document.getElementById('chatFab');
+const chatPanel = document.getElementById('chatPanel');
+const chatClose = document.getElementById('chatClose');
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+
+let chatOpened = false;
+
+function appendMessage(role, text){
+  const div = document.createElement('div');
+  div.className = 'msg ' + (role === 'user' ? 'user' : 'bot');
+  div.textContent = text;
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping(){
+  const div = document.createElement('div');
+  div.className = 'typing-indicator';
+  div.id = 'typingIndicator';
+  div.textContent = 'يكتب الآن...';
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+function hideTyping(){
+  const t = document.getElementById('typingIndicator');
+  if(t) t.remove();
+}
+
+function sendChat(){
+  const text = chatInput.value.trim();
+  if(!text) return;
+  chatInput.value = '';
+  appendMessage('user', text);
+  showTyping();
+  chatSend.disabled = true;
+
+  // small delay to feel natural
+  setTimeout(() => {
+    hideTyping();
+    appendMessage('bot', getReply(text));
+    chatSend.disabled = false;
+  }, 450 + Math.random() * 350);
+}
+
+chatFab.addEventListener('click', () => {
+  chatPanel.classList.toggle('open');
+  if(!chatOpened){
+    chatOpened = true;
+    appendMessage('bot', 'أهلًا وسهلًا فيك بمطعم FUNTOP 🌟 تحب أساعدك تختار طبق يناسب ذوقك، أو عندك سؤال عن أي صنف بالمنيو؟');
+  }
+});
+chatClose.addEventListener('click', () => chatPanel.classList.remove('open'));
+chatSend.addEventListener('click', sendChat);
+chatInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') sendChat(); });
+</script>
+</body>
+</html>
